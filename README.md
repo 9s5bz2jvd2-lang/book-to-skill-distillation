@@ -88,6 +88,19 @@ The output is `legal-dd-prc`: an agent-native skill an analyst-agent can route t
 | citations | statute/reference map with freshness warning and verification procedure |
 | case anecdotes | abstracted risk pattern, **not** copied fact pattern |
 
+
+## Cyclic low-power overlay
+
+This repo also includes a cyclic discipline for larger distillation runs: [`reference/cyclic-low-power-distillation.md`](reference/cyclic-low-power-distillation.md).
+
+> **网以通达，球以成身。心神合一，我圆如一。**
+>
+> Networks make knowledge reachable; cyclic return makes the system a body.
+
+The overlay does not replace the core book-to-skill workflow. It adds boundary-setting, trajectory records, daemon return blocks, low-power budgets, human review protection, and a return-to-hub contract so that every outward branch returns reusable lessons to the center.
+
+The framing was proposed by **Runyuan Wang** — a Chinese Registered Dietitian, member of Yunnan Astronomy Enthusiasts Association, and new explorer of AI workflows. Her bilingual contributor note is included in the reference module.
+
 ## Copyright and privacy discipline
 
 This skill is opinionated:
@@ -110,4 +123,4 @@ MIT — see [LICENSE](LICENSE). The skill itself (the operational rewriting work
 
 ## Status
 
-`version: 0.2.0`. Used in anger on a multi-hundred-page scanned professional treatise; matured enough to be worth sharing, still expected to evolve as it sees more source shapes.
+`version: 0.3.0`. Used in anger on a multi-hundred-page scanned professional treatise; matured enough to be worth sharing, still expected to evolve as it sees more source shapes.

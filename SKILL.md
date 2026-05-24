@@ -1,7 +1,7 @@
 ---
 name: book-to-skill-distillation
 description: End-to-end workflow for rewriting a book, long PDF, EPUB, or manual into an agent-native LingTai skill/knowledge structure; covers source triage, scanned/image-only PDF OCR, page maps, topic splitting, progressive-disclosure outline design, daemon fan-out, copyright-safe transformation, validation, and publishing.
-version: 0.2.0
+version: 0.3.0
 tags: [workflow, meta-skill, distillation, ocr, daemons, progressive-disclosure, agent-native-rewrite]
 ---
 
@@ -13,7 +13,7 @@ Keep `SKILL.md` as the router; put depth in `reference/`, reusable forms in `ass
 
 ## Lifecycle
 
-`Scout source → Recover structure → Extract/OCR substrate → Design target skill → Split by agent-native units → Rewrite in parallel → Reconcile → Validate & publish`
+`Scout source → Recover structure → Extract/OCR substrate → Design target skill → Split by agent-native units → Rewrite in parallel → Reconcile → Return to hub → Validate & publish`
 
 ## Router
 
@@ -24,6 +24,7 @@ Keep `SKILL.md` as the router; put depth in `reference/`, reusable forms in `ass
 | scanned PDF / blank pdftotext / full OCR | `reference/scanned-pdf-recipe.md` |
 | recover table of contents | `reference/toc-recovery.md` |
 | map book to skill tree | `reference/outline-design.md` |
+| add cyclic return / low-power / trajectory discipline | `reference/cyclic-low-power-distillation.md` |
 | use daemons in parallel | `reference/daemon-orchestration.md`, `assets/daemon-task-template.md` |
 | copyright concern | `reference/copyright-discipline.md` |
 | validate/publish | `reference/validation-checklist.md`, `reference/publishing.md` |
