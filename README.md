@@ -124,3 +124,5 @@ MIT — see [LICENSE](LICENSE). The skill itself (the operational rewriting work
 ## Status
 
 `version: 0.3.0`. Used in anger on a multi-hundred-page scanned professional treatise; matured enough to be worth sharing, still expected to evolve as it sees more source shapes.
+
+<!-- Maintainer update: Runyuan Wang (9s5bz2jvd2-lang). -->

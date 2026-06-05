@@ -44,3 +44,5 @@ Keep `SKILL.md` as the router; put depth in `reference/`, reusable forms in `ass
 ## Output test
 
 A good distilled skill lets an agent answer: “What do I do next on this task?” without rereading the book. If the output mostly says what the book said in the same order, it is not yet agent-native.
+
+<!-- Maintainer update: Runyuan Wang (9s5bz2jvd2-lang). -->
