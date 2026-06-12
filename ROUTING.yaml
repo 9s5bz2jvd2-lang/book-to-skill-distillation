@@ -20,6 +20,12 @@ trigger_terms:
     - 漏诊式扫查
     - 预算化引用
     - Skill Graph
+    - 资料库转 skill
+    - 大型数据库蒸馏
+    - schema map
+    - source map
+    - guideline library to skill
+    - large database distillation
     - ROUTING.yaml
     - CACHE.md
     - GRAPH.md
@@ -105,6 +111,7 @@ missed_case_sweep:
     - adjacent_skill_check
     - safety_or_evidence_gate_if_high_risk
     - output_contract_check
+    - source_map_or_schema_map_check
   high_risk_extra:
     - medical_or_nutrition_scope
     - special_population

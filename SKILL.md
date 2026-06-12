@@ -1,8 +1,8 @@
 ---
 name: book-to-skill-distillation
 description: |
-  End-to-end workflow for rewriting a book, long PDF, EPUB, manual, course, or methodology into an agent-native LingTai / Agent Skill structure. Use when the task is not a summary, but a reusable skill/knowledge system: source triage, scanned/image-only PDF OCR, source maps, shared-core extraction, top-k routed experts, sparse activation, missed-case sweep, budgeted references, daemon fan-out, copyright-safe transformation, validation, cyclic return-to-cache, and publishing.
-version: 0.4.0
+  End-to-end workflow for rewriting a book, long PDF, EPUB, manual, course, guideline library, large database, or methodology into an agent-native LingTai / Agent Skill structure. Use when the task is not a summary, but a reusable skill/knowledge system: source triage, scanned/image-only PDF OCR, source/schema maps, shared-core extraction, top-k routed experts, sparse activation, missed-case sweep, budgeted references, daemon fan-out, copyright-safe transformation, validation, cyclic return-to-cache, and publishing.
+version: 0.5.0
 tags: [workflow, meta-skill, distillation, ocr, daemons, progressive-disclosure, sparse-routing, missed-case-sweep, agent-native-rewrite]
 ---
 
@@ -10,15 +10,15 @@ tags: [workflow, meta-skill, distillation, ocr, daemons, progressive-disclosure,
 
 Convert a linear human text into a branching **agent-native** skill. Distillation here is not a summary and not a compressed copy: it is a rewrite into the forms an agent can call while working — routers, decision trees, checklists, schemas, prompts, scripts, validation gates, worked examples, and reference modules.
 
-Version 0.4 adds a sparse-distillation overlay: **shared core + top-k routed experts + missed-case sweep + budgeted references + cache-friendly layout + cyclic return-to-cache feedback loop**. The old OCR / daemon / copyright / publishing workflow remains; the new rule is that a distilled skill should make partial, routed reading possible by default, while still allowing full reading/audit when the task genuinely requires it.
+Version 0.5 extends the sparse-distillation overlay to large books, guideline collections, and databases: **shared core + top-k routed experts + missed-case sweep + budgeted references + cache-friendly layout + cyclic return-to-cache feedback loop**. The old OCR / daemon / copyright / publishing workflow remains; the new rule is that a distilled skill should make partial, routed reading possible by default, while still allowing full reading/audit when the task genuinely requires it. For large sources, a source map or schema map is the bridge between raw material and routed experts.
 
-Keep `SKILL.md` as the stable router; use `RUNBOOK.md` for execution discipline, `skill-manifest.yaml` and `ROUTING.yaml` for machine-readable routing, `scripts/route_plan.py` for first-pass reading plans, `GRAPH.md` for point-to-point expansion, `CACHE.md` for return-to-cache, `reference/` for depth, `assets/` for templates/evals, and project-private extraction substrate under `work/book-distill/<slug>/`.
+Keep `SKILL.md` as the stable router; use `reference/source-map-and-database-distillation.md` for book/database source maps; use `RUNBOOK.md` for execution discipline, `skill-manifest.yaml` and `ROUTING.yaml` for machine-readable routing, `scripts/route_plan.py` for first-pass reading plans, `GRAPH.md` for point-to-point expansion, `CACHE.md` for return-to-cache, `reference/` for depth, `assets/` for templates/evals, and project-private extraction substrate under `work/book-distill/<slug>/`.
 
 ## Core model
 
 | Layer | Purpose | Artifact examples |
 |---|---|---|
-| Source substrate | legally and privately inspect the source | `work/book-distill/<slug>/`, OCR, TOC map, source map |
+| Source substrate | legally and privately inspect the source | `work/book-distill/<slug>/`, OCR, TOC map, source/schema map |
 | Shared core | tiny always-on kernel for this skill | trigger, exclusions, red lines, output contract, safety sweep |
 | Routed experts | task-shaped modules, not chapter-shaped summaries | `reference/<expert>.md`, decision tables, checklists, scripts |
 | Sparse activation | keyword/task seed, then load the smallest sufficient expert set | `ROUTING.yaml`, `skill-manifest.yaml`, `scripts/route_plan.py` |
@@ -39,14 +39,14 @@ One-line test: **network gives the skill reachability; the cycle gives it contin
 | run a demand-sensitive sparse invocation | `RUNBOOK.md`, `scripts/route_plan.py`, `skill-manifest.yaml`, `ROUTING.yaml` |
 | use the sparse-distillation overlay | `reference/sparse-distillation-methodology.md`, `ROUTING.yaml` |
 | keyword seed + point-to-point graph expansion | `GRAPH.md`, `assets/sparse-nutrition-example.md` |
-| classify PDF/EPUB/source | `reference/source-triage.md` |
+| classify PDF/EPUB/database/source | `reference/source-triage.md` |
 | scanned PDF / blank pdftotext / full OCR | `reference/scanned-pdf-recipe.md` |
 | recover table of contents | `reference/toc-recovery.md` |
-| map book to skill tree | `reference/outline-design.md` |
+| map book/database source units to skill tree | `reference/source-map-and-database-distillation.md`, `reference/outline-design.md` |
 | add cyclic return / low-power / trajectory discipline | `reference/cyclic-low-power-distillation.md`, `CACHE.md` |
 | use daemons in parallel | `reference/daemon-orchestration.md`, `assets/daemon-task-template.md` |
 | copyright concern | `reference/copyright-discipline.md` |
-| validate/publish | `reference/validation-checklist.md`, `reference/publishing.md`, `assets/eval-cases.md` |
+| validate/publish | `reference/validation-checklist.md`, `reference/publishing.md`, `assets/eval-cases.md`, `assets/route-log-examples.md` |
 | calibrate on this run | `reference/worked-example-legal-dd.md` |
 | understand graph / cache / evolution surfaces | `GRAPH.md`, `CACHE.md`, `docs/self-evolution-loop.md` |
 
@@ -57,13 +57,13 @@ One-line test: **network gives the skill reachability; the cycle gives it contin
 3. Create `work/book-distill/<slug>/` and keep source-derived OCR/transcripts there, not inside the published skill.
 4. Run `scripts/scout.sh <source.pdf> work/book-distill/<slug>` or equivalent inspection; decide whether the source has a text layer.
 5. Recover the source structure: TOC, headings, page offsets, chapter boundaries, appendices, and repeated schemas.
-6. Build a **source map**: unit → source location → theme → role → risk → whether it can enter a public skill.
+6. Build a **source/schema map**: unit/table/field → source location → topic signature → role → risk → publishability → neighbor edges → refresh policy.
 7. Design the target skill before rewriting: trigger, exclusions, shared core, routed experts, assets, scripts, caveats, and validation plan.
 8. Split by **agent-native units** (tasks/decisions/risks), not by mechanical chapters. Each unit should become a routed expert or reference module.
 9. Fan out daemons: each daemon rewrites one topic or coherent topic group into operational structures, **not** into a chapter summary.
 10. Parent reconciles, removes duplication, cross-links experts, labels evidence boundaries, and enforces copyright-safe abstraction.
 11. Run a missed-case sweep: anti-triggers, adjacent skills, red flags, high-risk domain gates, missing evidence, and overbroad promises.
-12. Return lessons to hub: update `ROUTING.yaml`, `GRAPH.md`, `CACHE.md`, eval cases, gotchas, and validation checklist if the run revealed new patterns.
+12. Return lessons to hub: update `ROUTING.yaml`, `GRAPH.md`, `CACHE.md`, eval cases, route-log examples, gotchas, and validation checklist if the run revealed new patterns.
 13. Validate, refresh, and smoke-test realistic prompts before publishing.
 
 ## Sparse activation rule of thumb

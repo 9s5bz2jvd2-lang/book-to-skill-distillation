@@ -161,3 +161,23 @@ A run is complete only if you can state:
 2. why other modules were skipped or why full reading was justified;
 3. what risk sweep was performed;
 4. what should be easier next time.
+
+## 10. Books, guideline libraries, and databases
+
+When the source is large, structured, or non-linear, do not start by writing long expert modules. Start by building a source map or schema map.
+
+Minimum path:
+
+```text
+source inventory -> legal/privacy boundary -> source/schema map -> shared core -> seed signatures -> routed experts -> graph edges -> evals -> route-log examples
+```
+
+For books and textbooks, the map should connect chapters/pages to topic signatures and agent tasks. For guideline collections, record recommendation, population, authority, and date. For databases, record table, field, unit, missing-value code, provenance, update date, and interpretation rules.
+
+Invocation rule for large sources:
+
+```text
+keyword / field / concept signature -> seed node -> top-k experts -> one-hop neighbors -> safety/evidence/source-anchor gate -> answer or expand deliberately
+```
+
+Full source review is correct for first inventory, schema recovery, audit, migration, release review, or high-risk evidence conflict. It is not correct to leave future calls dependent on full review again; compress the result into `ROUTING.yaml`, `GRAPH.md`, `CACHE.md`, source-map notes, evals, or route-log examples.

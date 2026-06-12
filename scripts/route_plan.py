@@ -38,6 +38,10 @@ EXPERTS = {
         "file": "reference/toc-recovery.md",
         "terms": ["toc", "bookmark", "outline", "heading", "目录", "章节", "结构"],
     },
+    "source-map-database": {
+        "file": "reference/source-map-and-database-distillation.md",
+        "terms": ["database", "dataset", "table", "schema", "source map", "schema map", "guideline library", "corpus", "field", "unit", "provenance", "数据库", "数据集", "表格", "字段", "单位", "资料库", "指南库", "来源图", "源图谱"],
+    },
     "outline-design": {
         "file": "reference/outline-design.md",
         "terms": ["outline", "tree", "module", "expert", "split", "route", "map", "graph", "拆分", "路由", "模块", "结构"],
@@ -77,8 +81,8 @@ HIGH_RISK_TERMS = [
     "医学", "医疗", "营养", "法律", "金融", "临床", "儿童", "投稿", "公开发布",
 ]
 AUDIT_TERMS = [
-    "audit", "full", "entire", "whole", "migration", "migrate", "refactor", "redesign", "quality investigation",
-    "repo-wide", "coverage", "release review", "审计", "全量", "全部", "迁移", "重构", "整改", "质量排查", "发布前",
+    "audit", "full reading", "full review", "full scan", "entire repo", "whole repo", "migration", "migrate", "refactor", "redesign", "quality investigation",
+    "repo-wide", "coverage", "release review", "审计", "全量", "全部仓库", "全库审计", "迁移", "重构", "整改", "质量排查", "发布前",
 ]
 GRAPH_EXPANSION_TERMS = [
     "graph", "network", "neighbor", "point-to-point", "seed node", "keyword", "关键词", "网状", "网络", "点对点", "节点", "邻接", "非遍历", "无遗漏",
@@ -190,9 +194,9 @@ def plan(task: str, mode: str | None = None, top_k: int | None = None) -> RouteP
         # Broad reading is intentional. List all repo guidance files that exist.
         broad = [
             "README.md", "RUNBOOK.md", "ROUTING.yaml", "GRAPH.md", "CACHE.md", "RULES.md",
-            "assets/eval-cases.md", "assets/output-template.md", "assets/route-log-template.md",
+            "assets/eval-cases.md", "assets/output-template.md", "assets/route-log-template.md", "assets/route-log-examples.md",
             "reference/agent-native-rewrite.md", "reference/sparse-distillation-methodology.md",
-            "reference/source-triage.md", "reference/outline-design.md", "reference/validation-checklist.md",
+            "reference/source-triage.md", "reference/source-map-and-database-distillation.md", "reference/outline-design.md", "reference/validation-checklist.md",
             "reference/copyright-discipline.md", "reference/publishing.md",
         ]
         selected = list(dict.fromkeys(CORE_FILES + broad))
@@ -207,7 +211,7 @@ def plan(task: str, mode: str | None = None, top_k: int | None = None) -> RouteP
         optional.append("CACHE.md")
     optional = list(dict.fromkeys(optional))
 
-    all_files = [meta["file"] for meta in EXPERTS.values()] + ["GRAPH.md", "CACHE.md", "assets/eval-cases.md"]
+    all_files = [meta["file"] for meta in EXPERTS.values()] + ["GRAPH.md", "CACHE.md", "assets/eval-cases.md", "assets/route-log-examples.md"]
     skipped = [f for f in all_files if f not in selected and f not in optional]
 
     sweep = [

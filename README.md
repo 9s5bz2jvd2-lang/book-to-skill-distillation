@@ -1,8 +1,8 @@
 # book-to-skill-distillation
 
-A [LingTai](https://github.com/Lingtai-AI/lingtai) / Anthropic-style **Agent Skill** that converts a book, long PDF, EPUB, or professional manual into an **agent-native skill/knowledge structure** — not a human-readable summary.
+A [LingTai](https://github.com/Lingtai-AI/lingtai) / Anthropic-style **Agent Skill** that converts a book, long PDF, EPUB, professional manual, guideline collection, or large database into an **agent-native skill/knowledge structure** — not a human-readable summary.
 
-The output is something an agent can *call while working*: routers, decision trees, checklists, schemas, prompts, scripts, validation gates, worked examples, and progressive-disclosure reference modules. The source book disappears into operational memory; what remains is a skill an agent can route through to do work.
+The output is something an agent can *call while working*: source maps, routers, decision trees, checklists, schemas, prompts, scripts, validation gates, worked examples, and progressive-disclosure reference modules. The source book/database disappears into operational memory; what remains is a skill an agent can route through to do work.
 
 ## Why this exists
 
@@ -74,6 +74,27 @@ python3 scripts/route_plan.py --task "audit whether this skill really supports s
 ## Install (Anthropic Agent Skills convention)
 
 The layout — `SKILL.md` with YAML frontmatter + sibling `reference/`, `assets/`, `scripts/` directories — also conforms to the general Anthropic Agent Skills convention. You can plug it into any agent runtime that follows that convention, not only LingTai.
+
+
+## Default construction method for books and large databases
+
+Use this method whenever a book, textbook set, guideline library, evidence corpus, or database is being distilled into a skill:
+
+```text
+source inventory + legal/privacy boundary
+  -> source map / schema map
+  -> shared core
+  -> seed-node signatures
+  -> routed experts
+  -> point-to-point graph edges
+  -> missed-case sweep
+  -> evals + route-log examples
+  -> return-to-cache after serious use
+```
+
+The source map is mandatory for large sources. It records source unit, location, topic signature, role, risk tags, publishability, neighbor edges, and refresh policy. A database-derived skill should distill query and interpretation procedures, not raw rows. A book-derived skill should distill workflows and decision gates, not chapter prose.
+
+Sparse invocation is the default: keyword or field-name signatures hit seed nodes, then only the most relevant experts and one-hop neighbors open. Full reading or full scanning is correct for source inventory, audit, migration, release review, or high-risk evidence checks — but broad reading must end by compressing lessons back into routing, graph, cache, evals, or route logs.
 
 ## Example workflow
 
@@ -150,6 +171,6 @@ MIT — see [LICENSE](LICENSE). The skill itself (the operational rewriting work
 
 ## Status
 
-`version: 0.4.0`. Used in anger on a multi-hundred-page scanned professional treatise; matured enough to be worth sharing, now upgraded with sparse routing / missed-case sweep surfaces, still expected to evolve as it sees more source shapes.
+`version: 0.5.0`. Used in anger on a multi-hundred-page scanned professional treatise; matured enough to be worth sharing, now upgraded with sparse routing / missed-case sweep surfaces, still expected to evolve as it sees more source shapes.
 
 <!-- Maintainer update: Runyuan Wang (9s5bz2jvd2-lang). -->

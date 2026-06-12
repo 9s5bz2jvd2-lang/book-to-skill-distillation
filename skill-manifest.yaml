@@ -2,8 +2,8 @@
 # This file lets an agent or helper script plan what to read before opening deep modules.
 
 name: book-to-skill-distillation
-version: 0.4.1
-role: sparse_first_book_to_skill_workflow
+version: 0.5.0
+role: sparse_first_book_database_to_skill_workflow
 
 core_rule: >
   Start sparse, expand on demand, allow full reading when the task requires audit,
@@ -55,6 +55,11 @@ modules:
     path: reference/toc-recovery.md
     role: table-of-contents and heading recovery
     triggers: [toc, bookmark, outline, heading, 目录, 章节, 结构]
+
+  - id: source-map-database
+    path: reference/source-map-and-database-distillation.md
+    role: source/schema map for books, guideline libraries, databases, and table corpora
+    triggers: [database, dataset, table, schema, source map, guideline library, corpus, 数据库, 数据集, 表格, 字段, 资料库, 指南库]
   - id: outline-design
     path: reference/outline-design.md
     role: map source units to agent-native skill tree
@@ -112,4 +117,5 @@ return_surfaces:
   - CACHE.md
   - assets/eval-cases.md
   - assets/route-log-template.md
+  - assets/route-log-examples.md
   - RUNBOOK.md

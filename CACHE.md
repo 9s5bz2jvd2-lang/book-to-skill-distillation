@@ -161,3 +161,15 @@ stable shared core
 ## 10. 一句话
 
 > 缓存友好不是把所有东西固定住；而是让稳定规则稳定，让变化材料后置，让重料按需，让路由成本永远小于节省下来的成本；更进一步，是让每次命中后的经验回流成更短的 signature，使下一次更快回到命中的缓存。
+
+
+## 9. 大型 source map / database map 的缓存纪律
+
+Source map 与 database schema map 往往很大，不能整份进入 stable prefix。
+
+- stable prefix：只放 map schema、字段含义、常用 seed signatures、风险标签枚举、刷新规则。
+- variable suffix：当前命中的源单元、表、字段、页码、行范围、当前用户任务。
+- heavy reference：完整 OCR、完整数据库导出、全量 source map、长原文摘录。默认不读。
+- private substrate：原始数据、OCR、私有客户记录、受版权约束内容。不得进入公共 skill。
+
+若一次调用反复打开同一批 source-map 节点，应把这批路径压缩为更短 signature 或 route-log example；若只是一次性材料，不要污染 shared core。
