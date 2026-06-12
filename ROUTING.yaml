@@ -1,0 +1,126 @@
+# ROUTING.yaml — book-to-skill-distillation sparse overlay
+# Purpose: machine/agent-readable hints for sparse-first activation, missed-case sweep,
+# budgeted references, and cache-friendly invocation. Values are guidance, not hard runtime API.
+
+role: router_and_distillation_workflow
+activation_model: "shared-core + top-k routed experts + missed-case sweep"
+
+trigger_terms:
+  strong:
+    - 稀疏蒸馏
+    - 图书蒸馏
+    - book-to-skill
+    - textbook distillation
+    - 把一本书蒸馏成 skill
+    - 把长资料蒸馏成 skill
+    - DeepSeek 稀疏激活
+    - MoE 式 Skill 调用
+    - sparse activation skill
+    - missed-case sweep
+    - 漏诊式扫查
+    - 预算化引用
+    - Skill Graph
+    - ROUTING.yaml
+    - CACHE.md
+    - GRAPH.md
+  weak:
+    - Orange Book 转 Skill
+    - 方法论沉淀
+    - 长文档变工作流
+    - 课程蒸馏
+    - 大型 Skill 库
+    - progressive disclosure
+    - route logs
+    - cache-friendly prompt
+    - shared core
+    - top-k experts
+
+anti_triggers:
+  - 只要普通摘要
+  - 只要读后感
+  - 只问一个事实点
+  - 要复制整本书原文
+  - 要绕过版权购买资料
+  - 只是保存私有项目事实
+  - 没有复用价值的一次性报告
+
+neighbors:
+  upstream:
+    - 归一
+    - skills-manual
+    - textbook-distillation
+  safety:
+    - anti-hallucination-academic-writing
+    - nutrition-history-anti-hallucination
+    - food-agent-methodology
+  adjacent:
+    - nutrition-ai-productization
+    - yuanjiang-nutrition-production-line
+    - 万物生
+    - 圆酱营养科普生产线
+  output:
+    - html-report
+    - lingtai-issue-report
+
+budget:
+  shared_core:
+    target_tokens: "200-800"
+    cache_tier: stable_prefix
+  source_map:
+    target_tokens: "500-1500"
+    cache_tier: stable_or_reference_brief
+  routed_expert:
+    target_tokens: "800-3000"
+    cache_tier: variable_by_task
+  missed_case_sweep:
+    target_tokens: "200-800"
+    cache_tier: stable_checklist
+  heavy_reference:
+    target_tokens: "on-demand only"
+    cache_tier: variable_suffix
+  evals:
+    target_tokens: "small examples, loaded when testing"
+    cache_tier: reference
+
+sparse_activation:
+  seed_strategy: "keyword/task signature -> seed nodes -> point-to-point graph expansion -> missed-case sweep"
+  default_top_k: 2
+  max_top_k: 5
+  rules:
+    - "Always load shared core first."
+    - "Select seed nodes by keywords or task signature before opening deep modules."
+    - "Select the smallest sufficient expert set for the main workflow."
+    - "Expand point-to-point along graph edges; do not traverse the whole skill graph by default."
+    - "Use low-budget neighbor sweep instead of loading all adjacent skills by default."
+    - "Escalate to additional experts, heavy references, or full reading when the task requires audit, migration, refactor, safety review, quality investigation, or failed acceptance checks."
+    - "For high-risk domains, include safety/evidence gate even if it is not the top semantic match."
+    - "After broad/full reading, compress the result back into ROUTING, GRAPH, CACHE, evals, or a short route log so future calls can be sparse again."
+
+missed_case_sweep:
+  required:
+    - copyright_and_source_boundary
+    - private_information_boundary
+    - hallucinated_source_check
+    - anti_trigger_check
+    - adjacent_skill_check
+    - safety_or_evidence_gate_if_high_risk
+    - output_contract_check
+  high_risk_extra:
+    - medical_or_nutrition_scope
+    - special_population
+    - referral_or_professional_boundary
+    - stigma_or_shame_language
+    - citation_verifiability
+
+route_log_fields:
+  - task_summary
+  - source_type
+  - selected_experts
+  - skipped_experts
+  - sweep_items_checked
+  - sweep_hits
+  - references_loaded
+  - scripts_used
+  - budget_tier
+  - output_artifacts
+  - followup_needed

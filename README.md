@@ -17,9 +17,16 @@ It also encodes the operational discipline around that workflow:
 ## What's in this repo
 
 ```
-SKILL.md                     # Thin router — first file an agent loads
+SKILL.md                     # Thin sparse router — first file an agent loads
+RUNBOOK.md                   # Demand-sensitive sparse/full reading execution manual
+skill-manifest.yaml          # Machine-readable sparse invocation surface
+ROUTING.yaml                 # Sparse activation, anti-triggers, neighbors, budgets
+GRAPH.md                     # Seed-node and point-to-point graph expansion relations
+CACHE.md                     # Stable prefix vs variable suffix and update policy
+RULES.md                     # Repository ownership and safety rules
 reference/                   # Progressive-disclosure depth
   agent-native-rewrite.md    # Core transformation: book forms → agent-native forms
+  sparse-distillation-methodology.md # Shared-core + routed experts + missed-case sweep
   source-triage.md           # Classify the source (DIGITAL / SCANNED / MIXED / LOCKED)
   scanned-pdf-recipe.md      # Full OCR pipeline for image-only PDFs
   toc-recovery.md            # Recover structure from bookmarks/text/rendered TOC
@@ -30,6 +37,10 @@ reference/                   # Progressive-disclosure depth
   publishing.md              # Custom → shared → external promotion path
   worked-example-legal-dd.md # End-to-end run on an 865-page scanned legal book
 assets/                      # Reusable forms
+  eval-cases.md              # Route / anti-trigger / missed-case eval examples
+  output-template.md         # Sparse-distillation delivery template
+  route-log-template.md      # After-action log for return-to-cache
+  sparse-nutrition-example.md # Keyword seed + graph expansion example
   reference-doc-template.md  # Standard reference-module skeleton
   daemon-task-template.md    # Prompt template for one daemon
   toc-schema.yaml            # Canonical TOC data shape
@@ -39,6 +50,7 @@ scripts/                     # Deterministic helpers
   extract_bookmarks.py       # Dump PDF bookmarks + page count
   render_pages.sh            # Render page range to PNG at chosen DPI
   fanout_daemons.py          # Pointer to the daemon-task template
+  route_plan.py              # Generate first-pass sparse/broad reading plan
   quality_check.py           # Flag unfilled all-caps placeholder tokens
 ```
 
@@ -52,7 +64,12 @@ git clone <this-repo> .library/custom/book-to-skill-distillation
 
 Or, if you maintain LingTai elsewhere, copy this directory under whichever path your harness scans for custom skills. The skill self-describes via `SKILL.md`'s YAML frontmatter (`name`, `description`, `version`, `tags`).
 
-After install, an agent that recognises the LingTai skill protocol can invoke `/book-to-skill-distillation` (or the equivalent in your harness) to load `SKILL.md` and route from there.
+After install, an agent that recognises the LingTai skill protocol can invoke `/book-to-skill-distillation` (or the equivalent in your harness) to load `SKILL.md` and route from there. For a concrete reading plan before opening deeper files, run:
+
+```bash
+python3 scripts/route_plan.py --task "distill a nutrition guideline into a sparse callable skill"
+python3 scripts/route_plan.py --task "audit whether this skill really supports sparse invocation" --mode audit --json
+```
 
 ## Install (Anthropic Agent Skills convention)
 
@@ -89,6 +106,16 @@ The output is `legal-dd-prc`: an agent-native skill an analyst-agent can route t
 | case anecdotes | abstracted risk pattern, **not** copied fact pattern |
 
 
+## Sparse distillation overlay
+
+Version 0.4 integrates Runyuan Wang's sparse book-to-skill methodology into the original workflow. The upgraded target shape is:
+
+> **shared core + top-k routed experts + missed-case sweep + budgeted references + cache-friendly layout + cyclic return-to-cache feedback loop**
+
+This means a distilled skill should not require loading every chapter-derived module on every task. Instead, `SKILL.md` stays short and stable; `ROUTING.yaml` helps select only the relevant expert modules; `GRAPH.md` records neighboring skills and safety gates; `CACHE.md` records what should stay stable and what may evolve; `assets/eval-cases.md` tests routing and missed-case behavior.
+
+The older OCR, daemon fan-out, copyright discipline, and publishing modules are still the backbone. The sparse overlay makes the resulting skill cheaper to call, easier to audit, and more likely to return lessons to the center after each run.
+
 ## Cyclic low-power overlay
 
 This repo also includes a cyclic discipline for larger distillation runs: [`reference/cyclic-low-power-distillation.md`](reference/cyclic-low-power-distillation.md).
@@ -123,6 +150,6 @@ MIT — see [LICENSE](LICENSE). The skill itself (the operational rewriting work
 
 ## Status
 
-`version: 0.3.0`. Used in anger on a multi-hundred-page scanned professional treatise; matured enough to be worth sharing, still expected to evolve as it sees more source shapes.
+`version: 0.4.0`. Used in anger on a multi-hundred-page scanned professional treatise; matured enough to be worth sharing, now upgraded with sparse routing / missed-case sweep surfaces, still expected to evolve as it sees more source shapes.
 
 <!-- Maintainer update: Runyuan Wang (9s5bz2jvd2-lang). -->

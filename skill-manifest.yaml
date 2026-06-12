@@ -1,0 +1,115 @@
+# skill-manifest.yaml — machine-readable sparse invocation surface
+# This file lets an agent or helper script plan what to read before opening deep modules.
+
+name: book-to-skill-distillation
+version: 0.4.1
+role: sparse_first_book_to_skill_workflow
+
+core_rule: >
+  Start sparse, expand on demand, allow full reading when the task requires audit,
+  migration, refactor, safety review, quality investigation, release review, or
+  failed acceptance checks. After broad/full reading, compress findings back into
+  routing, graph, cache, evals, or a route log.
+
+entrypoints:
+  human:
+    - SKILL.md
+    - RUNBOOK.md
+  machine:
+    - skill-manifest.yaml
+    - ROUTING.yaml
+    - scripts/route_plan.py
+
+reading_modes:
+  quick:
+    default_files: [SKILL.md, ROUTING.yaml]
+    top_k_default: 1
+    full_reading: discouraged
+  normal:
+    default_files: [SKILL.md, RUNBOOK.md, ROUTING.yaml]
+    top_k_default: 3
+    full_reading: only_if_acceptance_fails
+  cross_topic:
+    default_files: [SKILL.md, RUNBOOK.md, ROUTING.yaml, GRAPH.md]
+    top_k_default: 3
+    full_reading: escalate_if_conflict
+  high_risk:
+    default_files: [SKILL.md, RUNBOOK.md, ROUTING.yaml, reference/copyright-discipline.md, reference/validation-checklist.md]
+    top_k_default: 4
+    full_reading: if_needed_for_evidence_or_safety
+  audit:
+    default_files: [README.md, SKILL.md, RUNBOOK.md, ROUTING.yaml, GRAPH.md, CACHE.md, RULES.md]
+    top_k_default: 99
+    full_reading: allowed_and_expected
+
+modules:
+  - id: source-triage
+    path: reference/source-triage.md
+    role: classify source and extraction route
+    triggers: [source, pdf, epub, manual, material, 来源, 材料, 格式]
+  - id: scanned-pdf
+    path: reference/scanned-pdf-recipe.md
+    role: OCR and image-only PDF recovery
+    triggers: [scan, scanned, OCR, image, blank, 扫描, 图片, 识别]
+  - id: toc-recovery
+    path: reference/toc-recovery.md
+    role: table-of-contents and heading recovery
+    triggers: [toc, bookmark, outline, heading, 目录, 章节, 结构]
+  - id: outline-design
+    path: reference/outline-design.md
+    role: map source units to agent-native skill tree
+    triggers: [outline, tree, module, split, route, graph, 拆分, 路由, 模块]
+  - id: agent-native-rewrite
+    path: reference/agent-native-rewrite.md
+    role: convert prose into operational artifacts
+    triggers: [rewrite, agent-native, workflow, checklist, 转写, 工作流, 清单]
+  - id: sparse-methodology
+    path: reference/sparse-distillation-methodology.md
+    role: shared-core/top-k/missed-case/return-to-cache method
+    triggers: [sparse, top-k, MoE, routing, cache, 稀疏, 低功耗, 按需, 全量, 回流]
+  - id: cyclic-low-power
+    path: reference/cyclic-low-power-distillation.md
+    role: low-power cyclic return discipline
+    triggers: [cycle, return, low-power, 回流, 成圆, 低功耗, 闭环]
+  - id: daemon-orchestration
+    path: reference/daemon-orchestration.md
+    role: parallel distillation branch control
+    triggers: [daemon, parallel, fanout, 分神, 并行]
+  - id: copyright
+    path: reference/copyright-discipline.md
+    role: copyright and quotation boundary
+    triggers: [copyright, license, publish, quote, 版权, 发布, 引用]
+  - id: validation
+    path: reference/validation-checklist.md
+    role: acceptance checks and quality gate
+    triggers: [validate, quality, test, eval, acceptance, 验收, 测试, 质量]
+  - id: publishing
+    path: reference/publishing.md
+    role: prepare public/shared publication
+    triggers: [publish, release, repo, github, 公开, 发布, 仓库]
+
+escalation:
+  full_reading_allowed_when:
+    - audit
+    - migration
+    - refactor
+    - full_redesign
+    - release_review
+    - quality_investigation
+    - source_coverage_proof
+    - safety_or_evidence_requires_it
+    - selected_modules_conflict
+    - acceptance_checks_fail
+  never_skip:
+    - copyright_boundary
+    - privacy_boundary
+    - high_risk_evidence_gate
+    - missed_case_sweep
+
+return_surfaces:
+  - ROUTING.yaml
+  - GRAPH.md
+  - CACHE.md
+  - assets/eval-cases.md
+  - assets/route-log-template.md
+  - RUNBOOK.md
