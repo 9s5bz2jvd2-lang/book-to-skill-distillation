@@ -60,3 +60,31 @@ return_to_cache:
   scripts/quality_check.py: added required file checks
 outcome: ready after validation
 ```
+
+## Example D — same-domain multi-book source-pack route
+
+```yaml
+task_signature: compare fiber recommendations across nutrition textbooks and guidelines
+mode: multi_book_sparse
+seed_nodes: [dietary_fiber, adult_recommendation, tolerance_boundary]
+source_packs_selected: [textbook_A_2022, guideline_B_2024]
+source_packs_skipped:
+  textbook_C_2010: older edition; only open if conflict persists
+source_anchor_units:
+  - textbook_A_2022:chapter_8:fiber
+  - guideline_B_2024:recommendation_3.2
+point_to_point_edges:
+  dietary_fiber -> guideline_source_anchor: evidence requirement
+  guideline_B_2024 -> textbook_C_2010: updates_or_supersedes
+conflict_log_entries:
+  - possible difference between textbook explanatory range and guideline population-specific recommendation
+sweep_items_checked:
+  - source_anchor_gate
+  - edition_or_version_gate
+  - medical_or_nutrition_scope
+full_reading: false
+return_to_cache:
+  GRAPH.md: add dietary_fiber -> tolerance_boundary edge if repeated
+  ROUTING.yaml: add fiber/recommendation as multi-book seed signature
+outcome: bounded answer with source-specific distinctions
+```

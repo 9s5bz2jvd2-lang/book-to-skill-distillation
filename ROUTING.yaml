@@ -26,6 +26,15 @@ trigger_terms:
     - source map
     - guideline library to skill
     - large database distillation
+    - 同域多书蒸馏
+    - 多书同域
+    - multi-book domain skill
+    - source pack
+    - source-pack catalog
+    - domain parent skill
+    - unified graph index
+    - 生万物
+    - Sheng-Wanwu
     - ROUTING.yaml
     - CACHE.md
     - GRAPH.md
@@ -75,6 +84,9 @@ budget:
   source_map:
     target_tokens: "500-1500"
     cache_tier: stable_or_reference_brief
+  source_pack_catalog:
+    target_tokens: "500-1500"
+    cache_tier: stable_or_reference_brief
   routed_expert:
     target_tokens: "800-3000"
     cache_tier: variable_by_task
@@ -100,6 +112,7 @@ sparse_activation:
     - "Use low-budget neighbor sweep instead of loading all adjacent skills by default."
     - "Escalate to additional experts, heavy references, or full reading when the task requires audit, migration, refactor, safety review, quality investigation, or failed acceptance checks."
     - "For high-risk domains, include safety/evidence gate even if it is not the top semantic match."
+    - "For same-domain multi-book tasks, route over source packs first; keep source_id/version anchors and run conflict gates before synthesis."
     - "After broad/full reading, compress the result back into ROUTING, GRAPH, CACHE, evals, or a short route log so future calls can be sparse again."
 
 missed_case_sweep:
@@ -112,6 +125,9 @@ missed_case_sweep:
     - safety_or_evidence_gate_if_high_risk
     - output_contract_check
     - source_map_or_schema_map_check
+    - source_pack_catalog_check
+    - source_anchor_check
+    - conflict_or_edition_drift_check
   high_risk_extra:
     - medical_or_nutrition_scope
     - special_population
@@ -122,6 +138,10 @@ missed_case_sweep:
 route_log_fields:
   - task_summary
   - source_type
+  - source_packs_selected
+  - source_packs_skipped
+  - source_anchor_units
+  - conflict_log_entries
   - selected_experts
   - skipped_experts
   - sweep_items_checked
@@ -131,3 +151,22 @@ route_log_fields:
   - budget_tier
   - output_artifacts
   - followup_needed
+
+
+multi_book:
+  role: same_domain_source_pack_router
+  default_top_k_source_packs: 2
+  max_top_k_source_packs: 5
+  required_surfaces:
+    - domain_parent_skill
+    - source_pack_catalog
+    - per_source_source_maps
+    - unified_graph_index
+    - conflict_log
+  gates:
+    - source_anchor_gate
+    - conflict_gate
+    - edition_or_version_gate
+    - safety_or_evidence_gate_if_high_risk
+  rule: "Do not blend sources into anonymous consensus; preserve source identity and log conflicts."
+  sheng_wanwu_foundation: "This is the 成库/成网 layer for later 六眼, hypothesis, Proof Gate, and Experiment Gate workflows."

@@ -56,6 +56,28 @@ raw sources
 
 Do not start by writing expert prose. Start by mapping source units and their roles.
 
+## Same-domain multi-book source packs
+
+When several books or sources share one domain, treat them as a **source-pack set** under a domain parent skill. Add these fields when possible:
+
+```yaml
+domain_id: stable domain parent id
+source_pack_id: stable id for one book/source
+version_or_edition: edition/year/version/date
+source_strength: authoritative | textbook_consensus | illustrative | historical | superseded
+cross_source_edges:
+  agrees_with: []
+  conflicts_with: []
+  updates_or_supersedes: []
+  same_concept_as: []
+  terminology_variant_of: []
+conflict_status: none | possible | confirmed | resolved | needs_human_review
+```
+
+Route over the source-pack catalog first, then open the smallest sufficient units. If two sources disagree, preserve the disagreement and run the conflict gate; do not blend the sources into anonymous consensus.
+
+For Sheng-Wanwu-style harnesses, this source-pack set is the “成库/成网” substrate. Hypothesis generation belongs downstream and must keep these source anchors and conflicts visible.
+
 ## Database-specific rules
 
 When distilling a database or table-heavy corpus:

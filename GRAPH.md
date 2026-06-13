@@ -180,3 +180,30 @@ source inventory
 | contradiction check | 两来源或版本可能冲突 | old guideline -> latest guideline check |
 
 原则：**源图谱负责可达，调用时只走命中的局部边；若为审计/迁移/发布复核而全量扫描，扫描后必须回到更短的 signature、edge、eval、gotcha。**
+
+## 11. 同域多书 / source pack graph
+
+同一领域多本书可以合并为一个巨型领域 skill，但图谱必须保持“源可分、边可查、冲突可见”。推荐结构：
+
+```text
+domain parent skill
+  -> source pack A
+  -> source pack B
+  -> source pack C
+  -> unified graph index
+  -> source/conflict/evidence gates
+```
+
+新增或强化的跨源边：
+
+| 边类型 | 何时打开 | 验收要求 |
+|---|---|---|
+| same_concept_as | 不同书讨论同一概念但术语不同 | 保留两个 source anchors |
+| terminology_variant_of | 同义词、旧名/新名、地区名差异 | 不自动合并定义 |
+| agrees_with | 两源对同一范围给出一致规则 | 记录独立 source_id |
+| conflicts_with | 两源结论、适用人群、数值或方法冲突 | 触发 conflict gate，不写成共识 |
+| updates_or_supersedes | 新版/新指南覆盖旧源 | 记录 edition/date 与 refresh policy |
+| source_scope_limit | 一源只适用于特定人群/场景 | 输出须写边界 |
+| hypothesis_seed_candidate | 多源空白/矛盾可供生万物后续扫描 | 仅作候选，不作结论 |
+
+生万物兼容口：本图谱只负责“成库、成网、守源”。若后续接入六眼洞观、生假说、Proof Gate 或 Experiment Gate，必须从 `source_anchor`、`conflicts_with`、`source_scope_limit` 等边开始，不得把 cross-source analogy 当成证据。

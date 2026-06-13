@@ -181,3 +181,29 @@ keyword / field / concept signature -> seed node -> top-k experts -> one-hop nei
 ```
 
 Full source review is correct for first inventory, schema recovery, audit, migration, release review, or high-risk evidence conflict. It is not correct to leave future calls dependent on full review again; compress the result into `ROUTING.yaml`, `GRAPH.md`, `CACHE.md`, source-map notes, evals, or route-log examples.
+
+## 11. Same-domain multi-book / source-pack mode
+
+When several books or sources in the same field must become one callable domain skill, use this staged path:
+
+```text
+source inventory
+  -> per-source source packs
+  -> domain parent router
+  -> unified graph index
+  -> top-k source-pack selection
+  -> source/conflict/safety gates
+  -> route log + conflict log + cache update
+```
+
+Rules:
+
+1. Keep each book/source identifiable by `source_pack_id`, `source_id`, version/edition/date, and publishability.
+2. Route over source packs; do not read all books by default.
+3. Open top-k source packs first (default 2, max 5) and expand one hop only when an edge justifies it.
+4. Run a conflict gate whenever two sources address the same concept, population, formula, recommendation, or procedure.
+5. Say “Source A says X; Source B says Y” when context or evidence differs. Do not synthesize disagreements into false consensus.
+6. Use full multi-source review only for first inventory, audit, release review, conflict resolution, source coverage proof, or high-risk evidence review.
+7. Return repeated cross-source routes into `GRAPH.md`, `CACHE.md`, `ROUTING.yaml`, eval cases, or route-log examples.
+
+This mode is the “成库 / 成网” layer for 生万物-style harnesses. It prepares anchored source packs and graph edges; later hypothesis generation must still pass source, conflict, evidence, Proof Gate, or Experiment Gate checks.

@@ -2,8 +2,8 @@
 # This file lets an agent or helper script plan what to read before opening deep modules.
 
 name: book-to-skill-distillation
-version: 0.5.0
-role: sparse_first_book_database_to_skill_workflow
+version: 0.5.1
+role: sparse_first_book_database_multibook_to_skill_workflow
 
 core_rule: >
   Start sparse, expand on demand, allow full reading when the task requires audit,
@@ -58,8 +58,12 @@ modules:
 
   - id: source-map-database
     path: reference/source-map-and-database-distillation.md
-    role: source/schema map for books, guideline libraries, databases, and table corpora
-    triggers: [database, dataset, table, schema, source map, guideline library, corpus, 数据库, 数据集, 表格, 字段, 资料库, 指南库]
+    role: source/schema map for books, guideline libraries, databases, table corpora, and source packs
+    triggers: [database, dataset, table, schema, source map, guideline library, corpus, multi-book, source pack, domain parent, 生万物, 数据库, 数据集, 表格, 字段, 资料库, 指南库, 多书, 同域多书]
+  - id: multi-book-domain
+    path: reference/multi-book-domain-distillation.md
+    role: same-domain multi-book/source-pack routing, conflict gates, and Sheng-Wanwu foundation layer
+    triggers: [multi-book, same-domain, source pack, domain parent, unified graph, conflict log, 生万物, 多书, 同域, 多来源]
   - id: outline-design
     path: reference/outline-design.md
     role: map source units to agent-native skill tree

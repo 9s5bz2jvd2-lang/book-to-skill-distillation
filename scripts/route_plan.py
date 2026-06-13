@@ -42,6 +42,10 @@ EXPERTS = {
         "file": "reference/source-map-and-database-distillation.md",
         "terms": ["database", "dataset", "table", "schema", "source map", "schema map", "guideline library", "corpus", "field", "unit", "provenance", "数据库", "数据集", "表格", "字段", "单位", "资料库", "指南库", "来源图", "源图谱"],
     },
+    "multi-book-domain": {
+        "file": "reference/multi-book-domain-distillation.md",
+        "terms": ["multi-book", "same-domain", "source pack", "source-pack", "domain parent", "unified graph", "conflict log", "edition drift", "Sheng-Wanwu", "生万物", "多书", "同域多书", "多来源", "跨书", "冲突门"],
+    },
     "outline-design": {
         "file": "reference/outline-design.md",
         "terms": ["outline", "tree", "module", "expert", "split", "route", "map", "graph", "拆分", "路由", "模块", "结构"],

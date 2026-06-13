@@ -173,3 +173,22 @@ Source map 与 database schema map 往往很大，不能整份进入 stable pref
 - private substrate：原始数据、OCR、私有客户记录、受版权约束内容。不得进入公共 skill。
 
 若一次调用反复打开同一批 source-map 节点，应把这批路径压缩为更短 signature 或 route-log example；若只是一次性材料，不要污染 shared core。
+
+## 11. Multi-book cache discipline
+
+同域多书 skill 的缓存目标不是“把所有书固定进 prompt”，而是固定最小可复用索引：
+
+- stable prefix：domain red lines、source-pack catalog schema、常用 source-pack signatures、conflict gate checklist、source/evidence hierarchy。
+- variable suffix：本次命中的 source units、具体页码/章节/字段、当前 conflict log、当前用户任务。
+- heavy reference：完整 source maps、OCR、原始数据库、长摘录、受版权限制内容；默认不读。
+- route log：只记 `source_packs_selected`、`source_packs_skipped`、`source_anchor_units`、`conflict_status`、`fix_next_time`，不记长原文。
+
+若同一跨书路径反复出现，应回流成：
+
+1. 更短的 domain signature；
+2. `GRAPH.md` 的跨源边；
+3. `assets/route-log-examples.md` 的短例；
+4. `assets/eval-cases.md` 的冲突/来源门测试；
+5. source-pack catalog 的 role 修正。
+
+不要把冲突解决过程写成长推理常驻；只保存“下次应先打开哪些源、检查哪条冲突边”。

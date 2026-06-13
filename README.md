@@ -1,6 +1,6 @@
 # book-to-skill-distillation
 
-A [LingTai](https://github.com/Lingtai-AI/lingtai) / Anthropic-style **Agent Skill** that converts a book, long PDF, EPUB, professional manual, guideline collection, or large database into an **agent-native skill/knowledge structure** — not a human-readable summary.
+A [LingTai](https://github.com/Lingtai-AI/lingtai) / Anthropic-style **Agent Skill** that converts a book, long PDF, EPUB, professional manual, guideline collection, same-domain multi-book source pack, or large database into an **agent-native skill/knowledge structure** — not a human-readable summary.
 
 The output is something an agent can *call while working*: source maps, routers, decision trees, checklists, schemas, prompts, scripts, validation gates, worked examples, and progressive-disclosure reference modules. The source book/database disappears into operational memory; what remains is a skill an agent can route through to do work.
 
@@ -95,6 +95,12 @@ source inventory + legal/privacy boundary
 The source map is mandatory for large sources. It records source unit, location, topic signature, role, risk tags, publishability, neighbor edges, and refresh policy. A database-derived skill should distill query and interpretation procedures, not raw rows. A book-derived skill should distill workflows and decision gates, not chapter prose.
 
 Sparse invocation is the default: keyword or field-name signatures hit seed nodes, then only the most relevant experts and one-hop neighbors open. Full reading or full scanning is correct for source inventory, audit, migration, release review, or high-risk evidence checks — but broad reading must end by compressing lessons back into routing, graph, cache, evals, or route logs.
+
+## Same-domain multi-book mode
+
+A giant domain skill is allowed only as a **domain parent router** over separate **source packs**. Each book, guideline, database, or corpus keeps its own `source_id`, version/edition, source anchors, and conflict status. The parent skill holds shared rules, source-pack catalog, routing policy, conflict/source gates, and cache surfaces; it does **not** paste every book into one monolithic `SKILL.md`.
+
+This mode is also the foundation layer for **生万物 / Sheng-Wanwu** style harnesses: first turn many sources into source packs, then into a unified graph index; only later should hypothesis scanning, Proof Gate, or Experiment Gate run on top of those anchored sources.
 
 ## Example workflow
 

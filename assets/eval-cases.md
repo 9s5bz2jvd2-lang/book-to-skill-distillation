@@ -118,6 +118,21 @@
 - 不默认加载完整数据库或全量指南正文；
 - 若为发布审计或证据冲突，允许全量核查，并要求核查后回流成 routing/graph/cache/eval。
 
+### C5 同域多书 / source-pack 蒸馏
+
+**输入**：
+> 我有同一领域的 5 本营养学教材和 3 份指南，想蒸馏成一个巨型领域 skill，但调用时不要每次读所有书。
+
+**期望**：
+- 触发 multi-book / source-pack 模式；
+- 要求每本书/指南保留 `source_pack_id`、版本/年份、publishability、source anchors；
+- 设计 domain parent skill + source-pack catalog + unified graph index；
+- 默认 top-k source packs，不全量遍历；
+- 跨书一致性用 `agrees_with`，冲突用 `conflicts_with` 或 `updates_or_supersedes`，不得写成无源共识；
+- 高风险营养/医学内容必须跑 safety/evidence/source gate；
+- 输出 route log 与 conflict log 回流建议；
+- 若提及生万物，只定位为“成库/成网”基础层，不直接宣称生成真理论。
+
 ## D. 预算测试
 
 ### D1 小任务直接执行
