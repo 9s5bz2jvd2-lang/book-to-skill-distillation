@@ -1,5 +1,19 @@
 # book-to-skill-distillation
 
+## ⚡ Quick Start
+
+```bash
+git clone https://github.com/9s5bz2jvd2-lang/book-to-skill-distillation
+cd book-to-skill-distillation
+pip install pymupdf trafilatura
+python scripts/setup_distill.py your-book.pdf
+# → Workspace created. Now follow SKILL.md for distillation.
+```
+
+**What this does**: Takes a book/PDF and converts it into an agent-native skill (routers, checklists, decision trees) — not a summary.
+
+---
+
 A [LingTai](https://github.com/Lingtai-AI/lingtai) / Anthropic-style **Agent Skill** that converts a book, long PDF, EPUB, professional manual, guideline collection, same-domain multi-book source pack, or large database into an **agent-native skill/knowledge structure** — not a human-readable summary.
 
 The output is something an agent can *call while working*: source maps, routers, decision trees, checklists, schemas, prompts, scripts, validation gates, worked examples, and progressive-disclosure reference modules. The source book/database disappears into operational memory; what remains is a skill an agent can route through to do work.
@@ -46,10 +60,11 @@ assets/                      # Reusable forms
   toc-schema.yaml            # Canonical TOC data shape
   copyright-banner.md        # Standard disclaimer for distilled skills
 scripts/                     # Deterministic helpers
+  setup_distill.py           # Bootstrap a workspace from a PDF (TOC + fulltext + seed stores)
   scout.sh                   # Quick DIGITAL vs. SCANNED verdict
   extract_bookmarks.py       # Dump PDF bookmarks + page count
   render_pages.sh            # Render page range to PNG at chosen DPI
-  fanout_daemons.py          # Pointer to the daemon-task template
+  fanout_daemons.py          # Generate one LingTai daemon task per reference doc
   route_plan.py              # Generate first-pass sparse/broad reading plan
   quality_check.py           # Flag unfilled all-caps placeholder tokens
 ```
@@ -173,7 +188,9 @@ This skill is opinionated:
 
 ## License
 
-MIT — see [LICENSE](LICENSE). The skill itself (the operational rewriting workflow) is original work. When you *use* the skill to distill a specific book, that derived skill carries the source book's licensing/copyright constraints; this skill enforces the discipline needed to stay on the right side of those, but you are responsible for compliance with the source's terms.
+**CC BY-NC 4.0** (Creative Commons Attribution-NonCommercial 4.0 International) — see [LICENSE](LICENSE). Copyright (c) 2026 王润圆. You may share and adapt the skill for non-commercial purposes with attribution.
+
+The skill itself (the operational rewriting workflow) is original work. When you *use* the skill to distill a specific book, that derived skill carries the source book's licensing/copyright constraints; this skill enforces the discipline needed to stay on the right side of those, but you are responsible for compliance with the source's terms.
 
 ## Status
 
